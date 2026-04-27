@@ -8,6 +8,7 @@ export type Track = {
   duration: string;
   embedUrl: string;
   tag?: 'NEW' | 'UNREL.' | 'SPLIT EP' | 'BC' | 'TAPE';
+  downloadable?: boolean;
 };
 
 export type DJSet = {

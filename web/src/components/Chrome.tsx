@@ -9,7 +9,7 @@ export function Chrome() {
       </div>
       <div className="text-[11px] text-ink-2 leading-snug text-right">
         <div><b className="text-ink">W17 / 2026</b></div>
-        <div>tracks · sets · lives · bonus</div>
+        <div className="hidden md:block">tracks · sets · lives · bonus</div>
       </div>
     </header>
   );

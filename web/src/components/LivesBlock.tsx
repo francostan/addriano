@@ -7,7 +7,6 @@ export function LivesBlock() {
   const { current } = usePlayer();
   return (
     <Block>
-      <Block.Corner>FIG. 04</Block.Corner>
       <Block.Header num="03" title="LIVES" jp="ライブ · RD-9 × TD-3 · HARDWARE" />
       <Block.Body>
         <div className="border-t-[1.5px] border-ink">

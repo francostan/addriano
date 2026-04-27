@@ -7,7 +7,6 @@ export function SetsBlock() {
   const { current } = usePlayer();
   return (
     <Block>
-      <Block.Corner>FIG. 03</Block.Corner>
       <Block.Header num="02" title="SETS" jp="DJセット · CHRONOLOGICAL" />
       <Block.Body>
         <Block.Photo src="/photos/sets.jpg" label="Sets · Landscape" />

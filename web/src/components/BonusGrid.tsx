@@ -4,7 +4,6 @@ import { Block } from './Block';
 export function BonusGrid() {
   return (
     <Block>
-      <Block.Corner lime>FIG. 05</Block.Corner>
       <Block.Header num="04" title="BONUS TRACK" jp="推薦・週刊 · WEEK 17 · 5 PICKS" />
       <div className="border-t-[1.5px] border-ink">
         {picks.map((p, i) => (
