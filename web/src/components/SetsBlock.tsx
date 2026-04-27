@@ -2,14 +2,15 @@ import { sets } from '../data/sets';
 import { Block } from './Block';
 import { Player } from './Player';
 import { usePlayer } from './Player/context';
+import { formatMs } from './Player/format';
 
 export function SetsBlock() {
-  const { current } = usePlayer();
+  const { current, durations } = usePlayer();
   return (
     <Block>
-      <Block.Header num="02" title="SETS" jp="DJセット · CHRONOLOGICAL" />
+      <Block.Header right num="02" title="SETS" jp="順番は気分" />
       <Block.Body>
-        <Block.Photo src="/photos/sets.jpg" label="Sets · Landscape" />
+        <Block.Photo src="/photos/sets.jpg" />
         <div className="border-t-[1.5px] border-ink">
           {sets.map(s => {
             const active = current?.id === s.id;
@@ -19,7 +20,7 @@ export function SetsBlock() {
                 <span className="font-display text-[13px]">{dd}·{mm}</span>
                 <span>
                   <b className="font-display text-sm block">{s.venue} / {s.city}</b>
-                  <span className="text-ink-2 text-[11px]">{s.genre} · {s.duration}</span>
+                  <span className="text-ink-2 text-[11px] tabular-nums">{durations[s.embedUrl] ? formatMs(durations[s.embedUrl]) : '--:--'}</span>
                 </span>
                 <span className="text-[11px] tracking-[0.14em] uppercase border border-ink px-1.5 py-0.5">{s.id}</span>
                 <Player.Button item={s} />

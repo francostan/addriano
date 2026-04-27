@@ -6,6 +6,7 @@ export type PlayerState = {
   isPlaying: boolean;
   position: number;
   duration: number;
+  durations: Record<string, number>;
   play: (item: Playable) => void;
   pause: () => void;
   toggle: () => void;
