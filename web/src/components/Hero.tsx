@@ -32,14 +32,13 @@ export function Hero() {
           <span className="inline-flex items-center gap-2 border-[1.5px] border-ink bg-lime px-3 py-1.5 text-[11px] tracking-[0.14em] uppercase">
             ▶ Latest Track
           </span>
-          <a href="https://soundcloud.com/addriano" target="_blank" rel="noreferrer" className="inline-flex items-center border-[1.5px] border-ink px-3 py-1.5 text-[11px] tracking-[0.14em] uppercase">SC ↗</a>
-          <a href="https://addriano.bandcamp.com" target="_blank" rel="noreferrer" className="inline-flex items-center border-[1.5px] border-ink px-3 py-1.5 text-[11px] tracking-[0.14em] uppercase">BC ↗</a>
-          <a href="https://instagram.com/addriano" target="_blank" rel="noreferrer" className="inline-flex items-center border-[1.5px] border-ink px-3 py-1.5 text-[11px] tracking-[0.14em] uppercase">IG ↗</a>
+          <a href="https://soundcloud.com/adriano-stanziola" target="_blank" rel="noreferrer" className="inline-flex items-center border-[1.5px] border-ink px-3 py-1.5 text-[11px] tracking-[0.14em] uppercase">SOUNDCLOUD ↗</a>
+          <a href="https://www.instagram.com/addriano______/" target="_blank" rel="noreferrer" className="inline-flex items-center border-[1.5px] border-ink px-3 py-1.5 text-[11px] tracking-[0.14em] uppercase">INSTAGRAM ↗</a>
         </div>
       </div>
 
       <div className="relative border-l-0 md:border-l-[1.5px] border-ink min-h-[480px]">
-        <img src="/photos/hero.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src="/photos/hero.jpg" alt="" className="absolute inset-0 w-full h-full object-cover object-[center_90%]" />
       </div>
     </Block>
   );

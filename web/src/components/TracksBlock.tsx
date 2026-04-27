@@ -27,7 +27,7 @@ export function TracksBlock() {
             );
           })}
         </div>
-        <Block.Photo src="/photos/tracks.jpg" label="Tracks · Mood" aspect="aspect-[4/5]" />
+        <Block.Photo src="/photos/tracks.jpg" label="Tracks · Mood" aspect="aspect-[4/5]" objectPosition="80% center" />
       </Block.Body>
     </Block>
   );

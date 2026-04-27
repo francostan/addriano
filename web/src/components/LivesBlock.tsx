@@ -25,7 +25,7 @@ export function LivesBlock() {
             );
           })}
         </div>
-        <Block.Photo src="/photos/lives.jpg" label="Live · Rig" />
+        <Block.Photo src="/photos/lives.jpg" label="Live · Rig" fit="natural" />
       </Block.Body>
     </Block>
   );
