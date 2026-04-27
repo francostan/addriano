@@ -1,0 +1,894 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Addriano — Portfolio Wireframes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo+Black&family=Caveat:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f1ede2;
+    --paper-2:#e8e3d4;
+    --ink:#141414;
+    --ink-2:#3a3a36;
+    --lime:#d4ff3a;
+    --lime-2:#b8e02a;
+    --rule:#1a1a1a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Space Mono",ui-monospace,monospace}
+  body{padding:0 0 80px}
+
+  /* ---------- top chrome ---------- */
+  .chrome{
+    position:sticky;top:0;z-index:50;background:var(--paper);
+    border-bottom:1.5px solid var(--ink);
+    padding:14px 28px 0 28px;
+  }
+  .chrome-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .brand{font-family:"Archivo Black",sans-serif;font-size:22px;letter-spacing:.02em;line-height:1}
+  .brand .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:13px;letter-spacing:.18em;display:block;margin-top:4px;color:var(--ink-2)}
+  .meta{font-size:11px;line-height:1.5;color:var(--ink-2);text-align:right}
+  .meta b{color:var(--ink)}
+
+  .tabs{display:flex;gap:0;margin-top:18px;border-bottom:0}
+  .tab{
+    appearance:none;background:transparent;border:1.5px solid var(--ink);border-bottom:none;
+    font-family:"Space Mono",monospace;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    padding:10px 16px 8px;cursor:pointer;color:var(--ink);position:relative;top:1.5px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .tab + .tab{border-left:none}
+  .tab[aria-selected="true"]{background:var(--lime)}
+  .tab .num{font-family:"Archivo Black",sans-serif;font-size:14px}
+  .tab .jp{font-family:"Noto Sans JP",sans-serif;font-size:9px;color:var(--ink-2);letter-spacing:.08em}
+  .tab[aria-selected="true"] .jp{color:var(--ink)}
+
+  /* ---------- frame ---------- */
+  .frame{
+    margin:0 28px;border:1.5px solid var(--ink);border-top:none;background:var(--paper);
+    min-height:1180px;position:relative;overflow:hidden;
+  }
+  .frame-header{
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1.5px solid var(--ink);padding:10px 18px;
+    font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);
+    background:repeating-linear-gradient(45deg,var(--paper),var(--paper) 6px,var(--paper-2) 6px,var(--paper-2) 7px);
+  }
+  .frame-header b{color:var(--ink)}
+  .panel{display:none;padding:0}
+  .panel.active{display:block}
+
+  /* ---------- common wireframe primitives ---------- */
+  .ph{ /* photo placeholder */
+    position:relative;background:#dcd6c5;border:1.5px solid var(--ink);overflow:hidden;
+  }
+  .ph img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.15) contrast(1.02)}
+  .ph::after{
+    content:attr(data-label);position:absolute;left:8px;bottom:8px;
+    background:var(--paper);border:1px solid var(--ink);font-size:9px;padding:2px 6px;letter-spacing:.12em;text-transform:uppercase;
+  }
+  .ph.empty{background:repeating-linear-gradient(135deg,#dcd6c5 0 10px,#cfc8b3 10px 11px);}
+  .ph.empty::before{
+    content:"PH";position:absolute;inset:0;display:grid;place-items:center;
+    font-family:"Archivo Black",sans-serif;font-size:34px;color:#0002;letter-spacing:.1em;
+  }
+  .scribble{font-family:"Caveat",cursive;color:var(--ink);font-weight:700}
+  .rule{border:none;border-top:1.5px solid var(--ink);margin:0}
+  .dot-rule{border:none;border-top:1.5px dashed var(--ink);margin:0}
+  .tag{display:inline-block;border:1px solid var(--ink);padding:2px 8px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:var(--paper)}
+  .tag.lime{background:var(--lime)}
+  .mono{font-family:"Space Mono",monospace}
+  .display{font-family:"Archivo Black",sans-serif;letter-spacing:.005em}
+  .jp{font-family:"Noto Sans JP",sans-serif}
+  .micro{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .arrow{font-family:"Archivo Black",sans-serif}
+  .annotate{
+    position:absolute;font-family:"Caveat",cursive;font-size:18px;color:var(--ink);
+    transform:rotate(-3deg);max-width:200px;line-height:1.05;
+  }
+  .annotate svg{position:absolute;overflow:visible}
+
+  /* btn */
+  .btn{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--ink);background:var(--paper);padding:6px 12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:default}
+  .btn.lime{background:var(--lime)}
+  .btn .play{width:0;height:0;border-left:9px solid var(--ink);border-top:6px solid transparent;border-bottom:6px solid transparent}
+  .btn .pause{width:9px;height:11px;border-left:3px solid var(--ink);border-right:3px solid var(--ink)}
+
+  /* hand-drawn-ish blob behind hero text */
+  .blob{position:absolute;background:var(--lime);border-radius:50% 40% 60% 50% / 60% 50% 60% 40%;filter:blur(.3px)}
+
+  /* ====================================================================
+     P1 — VINYL INDEX
+  ===================================================================== */
+  .p1{padding:32px 36px 60px}
+  .p1-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:end;margin-bottom:28px}
+  .p1-hero h1{font-family:"Archivo Black",sans-serif;font-size:120px;line-height:.85;margin:0;letter-spacing:-.02em}
+  .p1-hero h1 .mark{background:var(--lime);padding:0 .08em}
+  .p1-hero .sub{margin-top:14px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .p1-hero .ph{aspect-ratio:5/4}
+  .p1-meta{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--ink);margin-bottom:28px}
+  .p1-meta > div{padding:10px 14px;border-right:1.5px solid var(--ink)}
+  .p1-meta > div:last-child{border-right:none}
+  .p1-meta .k{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .p1-meta .v{font-family:"Archivo Black",sans-serif;font-size:18px;margin-top:2px}
+
+  .p1-section{display:grid;grid-template-columns:220px 1fr;gap:24px;border-top:1.5px solid var(--ink);padding:22px 0}
+  .p1-section .sleeve .ph{aspect-ratio:1/1}
+  .p1-section .sleeve .label{margin-top:8px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between}
+  .p1-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .p1-title h2{font-family:"Archivo Black",sans-serif;font-size:42px;margin:0;letter-spacing:-.01em}
+  .p1-title .jp{font-size:13px;color:var(--ink-2);letter-spacing:.16em}
+
+  .tracklist{border-top:1.5px solid var(--ink)}
+  .tracklist .row{display:grid;grid-template-columns:36px 1fr 90px 70px 70px 28px;gap:14px;align-items:center;padding:11px 6px;border-bottom:1px solid var(--ink);font-size:12px}
+  .tracklist .row .n{font-family:"Archivo Black",sans-serif}
+  .tracklist .row .t b{font-family:"Archivo Black",sans-serif;font-size:14px;display:block}
+  .tracklist .row .t span{color:var(--ink-2);font-size:11px}
+  .tracklist .row .play{width:18px;height:18px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:var(--paper)}
+  .tracklist .row .play::before{content:"";width:0;height:0;border-left:6px solid var(--ink);border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:2px}
+  .tracklist .row.lime{background:var(--lime)}
+
+  .setlist{border-top:1.5px solid var(--ink)}
+  .setlist .row{display:grid;grid-template-columns:90px 1fr 110px 80px 28px;gap:14px;align-items:center;padding:12px 6px;border-bottom:1px solid var(--ink);font-size:12px}
+  .setlist .row .date{font-family:"Archivo Black",sans-serif;font-size:13px}
+  .setlist .row .v b{font-family:"Archivo Black",sans-serif;font-size:14px;display:block}
+  .setlist .row .v span{color:var(--ink-2);font-size:11px}
+
+  /* ====================================================================
+     P2 — TAPE DECK / MIXTAPE
+  ===================================================================== */
+  .p2{padding:0}
+  .p2-hero{position:relative;height:560px;border-bottom:1.5px solid var(--ink);overflow:hidden;background:var(--ink)}
+  .p2-hero .ph{position:absolute;inset:0;border:none}
+  .p2-hero .ph img{filter:grayscale(.4) brightness(.78) contrast(1.1)}
+  .p2-hero .overlay{position:absolute;inset:0;color:#f4f1ea;padding:32px 40px;display:flex;flex-direction:column;justify-content:space-between}
+  .p2-hero h1{font-family:"Archivo Black",sans-serif;font-size:96px;line-height:.9;margin:0;letter-spacing:-.02em;color:var(--lime);text-shadow:0 0 0 #000}
+  .p2-hero h1 small{display:block;font-family:"Noto Sans JP",sans-serif;font-size:18px;letter-spacing:.2em;color:#f4f1ea;margin-top:14px;font-weight:400}
+  .p2-hero .topbar{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+  .p2-hero .topbar span{color:#f4f1ea99}
+  .p2-hero .scribble-note{position:absolute;right:40px;top:140px;color:var(--lime);transform:rotate(4deg);font-family:"Caveat",cursive;font-size:24px;max-width:220px;line-height:1}
+
+  .p2-player{
+    position:sticky;bottom:0;z-index:10;background:var(--ink);color:var(--paper);
+    display:grid;grid-template-columns:auto 1fr auto auto;gap:18px;align-items:center;
+    padding:10px 20px;border-top:1.5px solid var(--ink);
+  }
+  .p2-player .pp{width:34px;height:34px;background:var(--lime);border-radius:50%;display:grid;place-items:center;color:var(--ink)}
+  .p2-player .pp::before{content:"";width:0;height:0;border-left:10px solid var(--ink);border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+  .p2-player .now{font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .p2-player .now b{font-family:"Archivo Black",sans-serif;font-size:14px;display:block;letter-spacing:0;color:var(--lime)}
+  .p2-player .wave{height:24px;display:flex;gap:2px;align-items:flex-end}
+  .p2-player .wave i{width:2px;background:var(--lime);display:block}
+  .p2-player .time{font-size:11px;color:#f4f1ea99;font-variant-numeric:tabular-nums}
+  .p2-player .ext{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#f4f1eacc;border:1px solid #f4f1ea55;padding:4px 8px}
+
+  .p2-block{padding:48px 40px;border-bottom:1.5px solid var(--ink);position:relative}
+  .p2-block .label{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+  .p2-block .label .num{font-family:"Archivo Black",sans-serif;font-size:80px;line-height:.8;letter-spacing:-.04em}
+  .p2-block .label .num .of{font-size:18px;color:var(--ink-2);vertical-align:top;margin-left:6px}
+  .p2-block .label h2{font-family:"Archivo Black",sans-serif;font-size:54px;margin:0;letter-spacing:-.01em}
+  .p2-block .label .jp{font-family:"Noto Sans JP",sans-serif;font-size:13px;color:var(--ink-2);letter-spacing:.18em;margin-top:4px}
+  .p2-block .lead{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:start}
+  .p2-block .lead .ph{aspect-ratio:4/3}
+  .p2-list{margin-top:8px}
+  .p2-list .row{display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--ink);font-size:12px}
+  .p2-list .row .pp{width:26px;height:26px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center}
+  .p2-list .row .pp::before{content:"";width:0;height:0;border-left:8px solid var(--ink);border-top:5px solid transparent;border-bottom:5px solid transparent;margin-left:3px}
+  .p2-list .row b{font-family:"Archivo Black",sans-serif;font-size:14px}
+  .p2-list .row .meta{color:var(--ink-2);font-size:11px}
+
+  /* ====================================================================
+     P3 — TECHNICAL MANUAL
+  ===================================================================== */
+  .p3{padding:24px}
+  .p3-grid{
+    display:grid;grid-template-columns:repeat(12,1fr);gap:14px;
+  }
+  .p3-cell{border:1.5px solid var(--ink);background:var(--paper);position:relative;padding:14px}
+  .p3-cell .corner{
+    position:absolute;top:-1px;right:-1px;background:var(--ink);color:var(--paper);font-size:9px;letter-spacing:.14em;
+    padding:3px 7px;font-family:"Space Mono",monospace
+  }
+  .p3-cell .corner.lime{background:var(--lime);color:var(--ink)}
+  .p3-cell h3{font-family:"Archivo Black",sans-serif;font-size:16px;margin:6px 0 4px;letter-spacing:0}
+  .p3-cell .jp{font-size:10px;color:var(--ink-2);letter-spacing:.14em;display:block;margin-bottom:10px}
+
+  /* hero strip */
+  .p3-hero{grid-column:1/-1;display:grid;grid-template-columns:2fr 1fr;gap:14px;border:1.5px solid var(--ink);padding:18px;background:var(--paper);position:relative}
+  .p3-hero h1{font-family:"Archivo Black",sans-serif;font-size:84px;line-height:.85;margin:0;letter-spacing:-.02em}
+  .p3-hero h1 .lime{color:var(--lime);-webkit-text-stroke:1.5px var(--ink);}
+  .p3-hero .specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;border-top:1.5px solid var(--ink);margin-top:14px;padding-top:10px}
+  .p3-hero .specs div b{display:block;font-family:"Archivo Black",sans-serif;font-size:13px}
+  .p3-hero .ph{aspect-ratio:3/4}
+
+  .signal{grid-column:1/-1;border:1.5px solid var(--ink);padding:16px 18px;background:var(--paper-2)}
+  .signal h3{margin:0 0 10px;font-family:"Archivo Black",sans-serif;font-size:14px;letter-spacing:.06em;text-transform:uppercase;display:flex;justify-content:space-between}
+  .signal .flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .signal .node{border:1.5px solid var(--ink);background:var(--paper);padding:8px 12px;font-family:"Archivo Black",sans-serif;font-size:13px}
+  .signal .node.lime{background:var(--lime)}
+  .signal .arr{font-family:"Archivo Black",sans-serif}
+
+  .p3-tracks .row,.p3-sets .row{display:grid;gap:10px;padding:8px 0;border-bottom:1px dashed var(--ink);font-size:11px;align-items:center}
+  .p3-tracks .row{grid-template-columns:18px 1fr 60px 28px}
+  .p3-sets .row{grid-template-columns:64px 1fr 28px}
+  .p3-tracks .row b,.p3-sets .row b{font-family:"Archivo Black",sans-serif;font-size:12px;display:block}
+  .p3-tracks .row span,.p3-sets .row span{color:var(--ink-2);font-size:10px}
+
+  .p3-bonus .item{display:grid;grid-template-columns:24px 1fr 22px;gap:8px;padding:8px 0;border-bottom:1px dashed var(--ink);font-size:11px;align-items:center}
+  .p3-bonus .item .n{font-family:"Archivo Black",sans-serif;font-size:14px}
+  .p3-bonus .item b{font-family:"Archivo Black",sans-serif;font-size:12px;display:block}
+  .p3-bonus .item span{color:var(--ink-2);font-size:10px}
+
+  .p3-photo{padding:0;overflow:hidden}
+  .p3-photo .ph{aspect-ratio:1/1;border:none}
+
+  /* ====================================================================
+     P4 — CLUB FLYER / ZINE
+  ===================================================================== */
+  .p4{padding:0;position:relative;background:var(--paper);overflow:hidden}
+  .p4-stage{position:relative;min-height:1100px;padding:30px 36px}
+  .p4-title{
+    font-family:"Archivo Black",sans-serif;font-size:200px;line-height:.82;margin:0;letter-spacing:-.04em;
+    transform:translateX(-6px);
+  }
+  .p4-title .stack{display:block}
+  .p4-title .stack:nth-child(2){padding-left:120px;color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+  .p4-title .stack:nth-child(3){background:var(--lime);display:inline-block;padding:0 .08em;line-height:.95}
+  .p4-jp{position:absolute;right:36px;top:30px;writing-mode:vertical-rl;font-family:"Noto Sans JP",sans-serif;font-size:14px;letter-spacing:.4em;color:var(--ink-2)}
+
+  .p4-photo-1{position:absolute;right:36px;top:130px;width:280px;height:340px;transform:rotate(3deg)}
+  .p4-photo-2{position:absolute;left:36px;top:540px;width:240px;height:300px;transform:rotate(-2deg)}
+  .p4-photo-3{position:absolute;right:80px;top:760px;width:300px;height:220px;transform:rotate(2deg)}
+
+  .p4-tape{position:absolute;background:var(--lime);padding:4px 14px;font-family:"Archivo Black",sans-serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;border:1.5px solid var(--ink)}
+
+  .p4-block{position:absolute;background:var(--paper);border:1.5px solid var(--ink);padding:14px 16px;max-width:340px}
+  .p4-block h3{font-family:"Archivo Black",sans-serif;font-size:22px;margin:0 0 6px;letter-spacing:-.005em;display:flex;justify-content:space-between;align-items:baseline}
+  .p4-block h3 .num{font-size:12px;color:var(--ink-2)}
+  .p4-block .jp{display:block;font-family:"Noto Sans JP",sans-serif;font-size:10px;color:var(--ink-2);letter-spacing:.14em;margin-bottom:10px}
+  .p4-block .row{display:grid;grid-template-columns:18px 1fr auto;gap:8px;padding:6px 0;border-top:1px solid var(--ink);font-size:11px;align-items:center}
+  .p4-block .row:first-of-type{border-top:1.5px solid var(--ink)}
+  .p4-block .row b{font-family:"Archivo Black",sans-serif;font-size:12px;display:block}
+  .p4-block .row span{color:var(--ink-2);font-size:10px}
+
+  .p4-tracks{left:36px;top:380px}
+  .p4-sets{right:380px;top:340px}
+  .p4-lives{left:300px;top:600px}
+  .p4-bonus{right:36px;top:1020px;transform:translateY(-100%)}
+
+  .p4-marquee{position:absolute;left:0;right:0;bottom:0;border-top:1.5px solid var(--ink);background:var(--ink);color:var(--lime);overflow:hidden;white-space:nowrap;padding:10px 0;font-family:"Archivo Black",sans-serif;font-size:14px;letter-spacing:.3em}
+  .p4-marquee span{padding:0 30px;display:inline-block}
+
+  /* notes / annotations layer */
+  .legend{padding:18px 28px 0;display:flex;justify-content:space-between;align-items:center;color:var(--ink-2);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase}
+  .legend .scribble{font-family:"Caveat",cursive;color:var(--ink);text-transform:none;font-size:18px;letter-spacing:0}
+
+  /* ---------- Tweaks panel ---------- */
+  .tweaks{
+    position:fixed;right:18px;bottom:18px;z-index:80;background:var(--paper);border:1.5px solid var(--ink);
+    padding:14px 16px;width:240px;box-shadow:6px 6px 0 var(--ink);font-size:11px;
+  }
+  .tweaks h4{margin:0 0 10px;font-family:"Archivo Black",sans-serif;font-size:13px;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:center}
+  .tweaks h4 .jp{font-family:"Noto Sans JP",sans-serif;font-size:9px;color:var(--ink-2);letter-spacing:.18em;font-weight:400}
+  .tweaks label{display:block;margin:8px 0 4px;text-transform:uppercase;letter-spacing:.14em;font-size:9.5px;color:var(--ink-2)}
+  .tweaks .row{display:flex;gap:6px;flex-wrap:wrap}
+  .tweaks button{appearance:none;border:1.5px solid var(--ink);background:var(--paper);font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;cursor:pointer}
+  .tweaks button[aria-pressed="true"]{background:var(--lime)}
+  body.bw{--lime:#f1ede2}
+  body.bw .frame, body.bw .tab[aria-selected="true"]{background:var(--paper)}
+  body.bw .tab[aria-selected="true"]{outline:3px solid var(--ink);outline-offset:-3px}
+  body.bw .p2-hero h1{color:#fff}
+  body.bw .p2-player .pp{background:#fff}
+  body.bw .p2-player .wave i{background:#fff}
+  body.bw .p2-player .now b{color:#fff}
+  body.bw .p4-marquee{color:#fff}
+  body.bw .signal .node.lime{background:var(--paper)}
+  body.bw .tracklist .row.lime{background:var(--paper-2)}
+  body.bw .p3-hero h1 .lime{color:var(--paper);-webkit-text-stroke:1.5px var(--ink)}
+
+  body.dense .frame{transform:scale(.95);transform-origin:top center}
+
+  /* annotations on/off */
+  body.no-notes .annotate, body.no-notes .scribble-note{display:none}
+
+  @media (max-width:1100px){
+    .p1-hero{grid-template-columns:1fr}
+    .p1-hero h1{font-size:84px}
+    .p1-section{grid-template-columns:1fr}
+    .p2-hero h1{font-size:64px}
+    .p4-title{font-size:120px}
+    .p4-photo-1,.p4-photo-2,.p4-photo-3{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:4/3;transform:none;margin:14px 0}
+    .p4-block{position:relative;left:auto!important;right:auto!important;top:auto!important;max-width:none;margin:14px 0}
+    .p4-stage{min-height:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <div class="chrome-row">
+    <div class="brand">ADDRIANO — PORTFOLIO WIREFRAMES<span class="jp">アドリアーノ ・ ポートフォリオ ・ ラフ</span></div>
+    <div class="meta">
+      <div><b>v0.1</b> · 4 direcciones · low-fi exploration</div>
+      <div>tracks · sets · lives · bonus track</div>
+      <div>Verde lima signature + b/n · influencia jp técnica</div>
+    </div>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-target="p1"><span class="num">01</span><span><div>VINYL INDEX</div><div class="jp">アーカイヴ</div></span></button>
+    <button class="tab" role="tab" aria-selected="false" data-target="p2"><span class="num">02</span><span><div>TAPE DECK</div><div class="jp">ミックステープ</div></span></button>
+    <button class="tab" role="tab" aria-selected="false" data-target="p3"><span class="num">03</span><span><div>TECH MANUAL</div><div class="jp">テクニカル</div></span></button>
+    <button class="tab" role="tab" aria-selected="false" data-target="p4"><span class="num">04</span><span><div>CLUB FLYER</div><div class="jp">フライヤー</div></span></button>
+  </div>
+</div>
+
+<div class="legend">
+  <div>WIREFRAME · BLACK & LIME · NOT FINAL VISUAL</div>
+  <div class="scribble">notas a mano = decisiones por discutir ✎</div>
+  <div>2026 · ROUGH PASS</div>
+</div>
+
+<div class="frame">
+  <div class="frame-header">
+    <div><b>FRAME / </b> <span id="frameName">VINYL INDEX</span></div>
+    <div>FORMAT: SINGLE-PAGE SCROLL · CINEMÁTICO · MIXTAPE</div>
+    <div>SHEET 01 / 04</div>
+  </div>
+
+  <!-- ============================================================
+       PANEL 1 — VINYL INDEX (archive / discogs feel)
+       ============================================================ -->
+  <section class="panel p1 active" id="p1">
+    <div class="p1-hero">
+      <div>
+        <div class="micro" style="margin-bottom:14px">↳ HOME · 00 / INTRO</div>
+        <h1>ADD<span class="mark">RIA</span><br>NO.</h1>
+        <div class="sub">
+          <span class="tag">DJ</span>
+          <span class="tag">PRODUCER</span>
+          <span class="tag">LIVE HW</span>
+          <span class="tag lime">EST. ////</span>
+          <span class="jp" style="color:var(--ink-2)">ハードグルーヴ・テクノ・ハウス</span>
+        </div>
+        <p style="max-width:520px;font-size:12px;line-height:1.6;color:var(--ink-2);margin-top:18px">
+          Hardgroove · 90's techno · groove · house · hypnotic.
+          Berlin / París underground. RD-9 + TD-3 hardware live.
+          Daltónico — esta interfaz se construye con b/n y un solo verde signature.
+        </p>
+        <div style="display:flex;gap:8px;margin-top:18px">
+          <span class="btn lime"><span class="play"></span> LATEST TRACK</span>
+          <span class="btn">SOUNDCLOUD ↗</span>
+          <span class="btn">BANDCAMP ↗</span>
+          <span class="btn">IG ↗</span>
+        </div>
+      </div>
+      <div class="ph" data-label="HERO · RD-9 + MAR"><img src="photos/p2.jpg" alt=""></div>
+    </div>
+
+    <div class="p1-meta">
+      <div><div class="k">Index</div><div class="v">04 BLOCKS</div></div>
+      <div><div class="k">Last Drop</div><div class="v">SET #024</div></div>
+      <div><div class="k">Now Playing</div><div class="v">— TRACK 03</div></div>
+      <div><div class="k">Weekly Picks</div><div class="v">W17 · 5/5</div></div>
+    </div>
+
+    <!-- TRACKS -->
+    <div class="p1-section">
+      <div class="sleeve">
+        <div class="ph" data-label="TRACKS · SIGNATURE"><img src="photos/p3.jpg" alt=""></div>
+        <div class="label"><span>SLEEVE A</span><span>33⅓ RPM</span></div>
+      </div>
+      <div>
+        <div class="p1-title">
+          <h2>01 / TRACKS</h2>
+          <div><span class="jp">トラック</span> &nbsp;·&nbsp; <span class="micro">ORIG. PRODUCTIONS</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--ink-2);margin:0 0 8px">Listado tipo discogs · BPM · key · catálogo. Click ▶ → preview inline. Link externo ↗ a SoundCloud / Bandcamp.</p>
+        <div class="tracklist">
+          <div class="row lime">
+            <span class="n">A1</span>
+            <span class="t"><b>HYPNO LOOP / 04</b><span>2026 · self-released · WAV</span></span>
+            <span>134 BPM</span><span>F MIN</span><span>06:42</span>
+            <span class="play"></span>
+          </div>
+          <div class="row">
+            <span class="n">A2</span>
+            <span class="t"><b>RD9 SKETCH</b><span>2025 · UNRELEASED</span></span>
+            <span>138 BPM</span><span>A MIN</span><span>05:18</span>
+            <span class="play"></span>
+          </div>
+          <div class="row">
+            <span class="n">A3</span>
+            <span class="t"><b>BERLÍN A LAS 4</b><span>2025 · split EP</span></span>
+            <span>136 BPM</span><span>D MIN</span><span>07:01</span>
+            <span class="play"></span>
+          </div>
+          <div class="row">
+            <span class="n">A4</span>
+            <span class="t"><b>GROOVE STUDY #02</b><span>2024 · bandcamp</span></span>
+            <span>132 BPM</span><span>G MIN</span><span>06:10</span>
+            <span class="play"></span>
+          </div>
+          <div class="row">
+            <span class="n">A5</span>
+            <span class="t"><b>NINETIES BUMP</b><span>2024 · cassette</span></span>
+            <span>130 BPM</span><span>C MIN</span><span>05:44</span>
+            <span class="play"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETS -->
+    <div class="p1-section">
+      <div class="sleeve">
+        <div class="ph" data-label="SETS · LANDSCAPE"><img src="photos/p1.jpg" alt=""></div>
+        <div class="label"><span>SLEEVE B</span><span>45 RPM</span></div>
+      </div>
+      <div>
+        <div class="p1-title">
+          <h2>02 / SETS</h2>
+          <div><span class="jp">DJセット</span> &nbsp;·&nbsp; <span class="micro">CLUB · RECORDED</span></div>
+        </div>
+        <div class="setlist">
+          <div class="row">
+            <span class="date">26 · 04</span>
+            <span class="v"><b>WAREHOUSE / BSAS</b><span>hardgroove · hypnotic</span></span>
+            <span>02 : 14 : 03</span><span>SET #024</span>
+            <span class="play"></span>
+          </div>
+          <div class="row lime">
+            <span class="date">12 · 03</span>
+            <span class="v"><b>NACHTBAR / PARIS</b><span>90's techno guest mix</span></span>
+            <span>01 : 48 : 22</span><span>SET #023</span>
+            <span class="play"></span>
+          </div>
+          <div class="row">
+            <span class="date">02 · 02</span>
+            <span class="v"><b>HOME RADIO / W22</b><span>house · groove</span></span>
+            <span>01 : 02 : 11</span><span>SET #022</span>
+            <span class="play"></span>
+          </div>
+          <div class="row">
+            <span class="date">14 · 01</span>
+            <span class="v"><b>BERLIN BASEMENT</b><span>hypnotic · long mix</span></span>
+            <span>03 : 06 : 40</span><span>SET #021</span>
+            <span class="play"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVES -->
+    <div class="p1-section">
+      <div class="sleeve">
+        <div class="ph" data-label="LIVE · RIG"><img src="photos/p2.jpg" alt=""></div>
+        <div class="label"><span>SLEEVE C</span><span>HW LIVE</span></div>
+      </div>
+      <div>
+        <div class="p1-title">
+          <h2>03 / LIVES</h2>
+          <div><span class="jp">ライブセット</span> &nbsp;·&nbsp; <span class="micro">RD-9 × TD-3</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--ink-2);margin:0 0 10px">Audio del live + foto del setup. Diagrama del rig opcional al hover.</p>
+        <div class="setlist">
+          <div class="row">
+            <span class="date">— LIVE</span>
+            <span class="v"><b>RD9 × TD3 · SUNSET</b><span>outdoor · hardware live</span></span>
+            <span>00 : 42 : 18</span><span>L#03</span>
+            <span class="play"></span>
+          </div>
+          <div class="row">
+            <span class="date">— LIVE</span>
+            <span class="v"><b>HOME STUDIO JAM</b><span>groove session</span></span>
+            <span>00 : 28 : 04</span><span>L#02</span>
+            <span class="play"></span>
+          </div>
+          <div class="row">
+            <span class="date">— LIVE</span>
+            <span class="v"><b>HYPNOTIC NIGHT</b><span>RD9 + FX chain</span></span>
+            <span>00 : 51 : 47</span><span>L#01</span>
+            <span class="play"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BONUS -->
+    <div class="p1-section">
+      <div class="sleeve">
+        <div class="ph empty" data-label="BONUS · PICKS"></div>
+        <div class="label"><span>SLEEVE D</span><span>WEEKLY 5</span></div>
+      </div>
+      <div>
+        <div class="p1-title">
+          <h2>04 / BONUS TRACK</h2>
+          <div><span class="jp">推薦・週刊</span> &nbsp;·&nbsp; <span class="micro">5 PICKS · WEEK 17</span></div>
+        </div>
+        <div class="tracklist">
+          <div class="row"><span class="n">B1</span><span class="t"><b>ARTIST — TRACK NAME</b><span>label · year · ref</span></span><span>—</span><span>—</span><span>—</span><span class="play"></span></div>
+          <div class="row"><span class="n">B2</span><span class="t"><b>ARTIST — TRACK NAME</b><span>label · year · ref</span></span><span>—</span><span>—</span><span>—</span><span class="play"></span></div>
+          <div class="row"><span class="n">B3</span><span class="t"><b>ARTIST — TRACK NAME</b><span>label · year · ref</span></span><span>—</span><span>—</span><span>—</span><span class="play"></span></div>
+          <div class="row"><span class="n">B4</span><span class="t"><b>ARTIST — TRACK NAME</b><span>label · year · ref</span></span><span>—</span><span>—</span><span>—</span><span class="play"></span></div>
+          <div class="row"><span class="n">B5</span><span class="t"><b>ARTIST — TRACK NAME</b><span>label · year · ref</span></span><span>—</span><span>—</span><span>—</span><span class="play"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotate" style="right:32px;top:120px">
+      idea: la marca ADD(RIA)NO con la sílaba central destacada en lima
+      <svg width="80" height="40" style="left:-70px;top:8px"><path d="M0,30 C 30,10 60,10 78,18" fill="none" stroke="#141414" stroke-width="1.5"/><polygon points="78,18 70,15 72,22" fill="#141414"/></svg>
+    </div>
+    <div class="annotate" style="left:280px;top:870px;transform:rotate(2deg)">
+      cada bloque = un sleeve de vinilo con foto signature
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PANEL 2 — TAPE DECK / MIXTAPE
+       ============================================================ -->
+  <section class="panel p2" id="p2">
+    <div class="p2-hero">
+      <div class="ph" data-label=""><img src="photos/p3.jpg" alt=""></div>
+      <div class="overlay">
+        <div class="topbar">
+          <span>ADDRIANO · MIXTAPE PORTFOLIO</span>
+          <span>SIDE A — 2026 / W17</span>
+        </div>
+        <h1>SIDE A.<small>アドリアーノ ・ ミックステープ ・ 単一頁</small></h1>
+        <div class="topbar">
+          <span>SCROLL ↓ · CONTINUOUS PLAY</span>
+          <span>04 BLOCKS · ONE PAGE</span>
+        </div>
+      </div>
+      <div class="scribble-note">una sola página, suena como un mixtape mientras scrolleás ✶</div>
+    </div>
+
+    <div class="p2-block">
+      <div class="label">
+        <div class="num">01<span class="of">/04</span></div>
+        <div>
+          <h2>TRACKS</h2>
+          <div class="jp">トラック · ORIGINAL PRODUCTIONS</div>
+        </div>
+      </div>
+      <div class="lead">
+        <div class="ph" data-label="TRACKS · MOOD PHOTO"><img src="photos/p3.jpg" alt=""></div>
+        <div>
+          <p style="font-size:13px;line-height:1.55;margin:0 0 12px">
+            Producciones originales. La foto del bloque define el mood — RD-9 al sol, naranja saturado, mar al fondo. La música suena en el player flotante, sin cortes entre secciones.
+          </p>
+          <div class="p2-list">
+            <div class="row"><span class="pp"></span><b>HYPNO LOOP / 04</b><span class="meta">134 · F min · 06:42</span><span class="tag">NEW</span></div>
+            <div class="row"><span class="pp"></span><b>RD9 SKETCH</b><span class="meta">138 · A min · 05:18</span><span class="tag">UNREL.</span></div>
+            <div class="row"><span class="pp"></span><b>BERLÍN A LAS 4</b><span class="meta">136 · D min · 07:01</span><span class="tag">SPLIT EP</span></div>
+            <div class="row"><span class="pp"></span><b>GROOVE STUDY #02</b><span class="meta">132 · G min · 06:10</span><span class="tag">BC ↗</span></div>
+            <div class="row"><span class="pp"></span><b>NINETIES BUMP</b><span class="meta">130 · C min · 05:44</span><span class="tag">TAPE</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p2-block">
+      <div class="label">
+        <div class="num">02<span class="of">/04</span></div>
+        <div>
+          <h2>SETS</h2>
+          <div class="jp">DJセット · RECORDED MIXES</div>
+        </div>
+      </div>
+      <div class="lead">
+        <div>
+          <p style="font-size:13px;line-height:1.55;margin:0 0 12px">Lista cronológica simple, click ▶ y suena en el player flotante. Externo ↗ abre soundcloud/mixcloud.</p>
+          <div class="p2-list">
+            <div class="row"><span class="pp"></span><b>WAREHOUSE / BSAS — 26.04</b><span class="meta">02:14:03 · hardgroove</span><span class="tag">↗</span></div>
+            <div class="row"><span class="pp"></span><b>NACHTBAR / PARIS — 12.03</b><span class="meta">01:48:22 · 90's techno</span><span class="tag">↗</span></div>
+            <div class="row"><span class="pp"></span><b>HOME RADIO / W22 — 02.02</b><span class="meta">01:02:11 · house · groove</span><span class="tag">↗</span></div>
+            <div class="row"><span class="pp"></span><b>BERLIN BASEMENT — 14.01</b><span class="meta">03:06:40 · hypnotic</span><span class="tag">↗</span></div>
+          </div>
+        </div>
+        <div class="ph" data-label="SETS · LANDSCAPE"><img src="photos/p1.jpg" alt=""></div>
+      </div>
+    </div>
+
+    <div class="p2-block">
+      <div class="label">
+        <div class="num">03<span class="of">/04</span></div>
+        <div>
+          <h2>LIVES</h2>
+          <div class="jp">ライブ · HARDWARE · RD-9 + TD-3</div>
+        </div>
+      </div>
+      <div class="lead">
+        <div class="ph" data-label="LIVE · RIG SETUP"><img src="photos/p2.jpg" alt=""></div>
+        <div>
+          <p style="font-size:13px;line-height:1.55;margin:0 0 12px">Audio del live + foto del rig. Cada live es un take en hardware — RD-9 + TD-3 + cadena de FX. La foto importa tanto como el audio.</p>
+          <div class="p2-list">
+            <div class="row"><span class="pp"></span><b>RD9 × TD3 · SUNSET</b><span class="meta">00:42:18 · outdoor</span><span class="tag">L#03</span></div>
+            <div class="row"><span class="pp"></span><b>HOME STUDIO JAM</b><span class="meta">00:28:04 · groove</span><span class="tag">L#02</span></div>
+            <div class="row"><span class="pp"></span><b>HYPNOTIC NIGHT</b><span class="meta">00:51:47 · RD9 + FX</span><span class="tag">L#01</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p2-block" style="border-bottom:none">
+      <div class="label">
+        <div class="num">04<span class="of">/04</span></div>
+        <div>
+          <h2>BONUS TRACK</h2>
+          <div class="jp">推薦 · WEEKLY 5 — REFERENCES</div>
+        </div>
+      </div>
+      <div class="lead">
+        <div>
+          <p style="font-size:13px;line-height:1.55;margin:0 0 12px">5 picks semanales del artista — referencias que está escuchando. Embed simple. Archivo de semanas anteriores en /bonus.</p>
+          <div class="p2-list">
+            <div class="row"><span class="pp"></span><b>01 · ARTIST — TRACK</b><span class="meta">label · year</span><span class="tag">SC ↗</span></div>
+            <div class="row"><span class="pp"></span><b>02 · ARTIST — TRACK</b><span class="meta">label · year</span><span class="tag">SC ↗</span></div>
+            <div class="row"><span class="pp"></span><b>03 · ARTIST — TRACK</b><span class="meta">label · year</span><span class="tag">BC ↗</span></div>
+            <div class="row"><span class="pp"></span><b>04 · ARTIST — TRACK</b><span class="meta">label · year</span><span class="tag">YT ↗</span></div>
+            <div class="row"><span class="pp"></span><b>05 · ARTIST — TRACK</b><span class="meta">label · year</span><span class="tag">SC ↗</span></div>
+          </div>
+        </div>
+        <div class="ph empty" data-label="BONUS · OPTIONAL PHOTO"></div>
+      </div>
+    </div>
+
+    <div class="p2-player">
+      <div class="pp"></div>
+      <div class="now">NOW PLAYING<b>HYPNO LOOP / 04 — addriano</b></div>
+      <div class="wave" id="wave2"></div>
+      <div class="time">02:14 / 06:42</div>
+      <div class="ext">SC ↗</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PANEL 3 — TECHNICAL MANUAL
+       ============================================================ -->
+  <section class="panel p3" id="p3">
+    <div class="p3-grid">
+      <div class="p3-hero">
+        <div>
+          <div class="micro">FIG. 00 · IDENTITY · 識別</div>
+          <h1>ADDRIANO<br><span class="lime">サウンド・ユニット</span></h1>
+          <div class="specs">
+            <div><b>HARDGROOVE</b>ハードグルーヴ</div>
+            <div><b>HOUSE</b>ハウス</div>
+            <div><b>90'S TECHNO</b>テクノ</div>
+            <div><b>HYPNOTIC</b>ヒプノティック</div>
+            <div><b>HARDWARE LIVE</b>RD-9 / TD-3</div>
+            <div><b>REF.</b>BERLIN — PARIS</div>
+          </div>
+        </div>
+        <div class="ph" data-label="UNIT · OPERATOR"><img src="photos/p3.jpg" alt=""></div>
+      </div>
+
+      <div class="signal">
+        <h3>FIG. 01 · SIGNAL FLOW · 信号フロー <span style="color:var(--ink-2);font-weight:400;font-size:11px">REV.A</span></h3>
+        <div class="flow">
+          <span class="node">RD-9</span><span class="arr">→</span>
+          <span class="node">TD-3</span><span class="arr">→</span>
+          <span class="node">MIXER</span><span class="arr">→</span>
+          <span class="node lime">FX CHAIN</span><span class="arr">→</span>
+          <span class="node">REC OUT</span><span class="arr">→</span>
+          <span class="node">SOUND SYSTEM</span>
+        </div>
+      </div>
+
+      <!-- TRACKS -->
+      <div class="p3-cell p3-tracks" style="grid-column:1/span 5">
+        <div class="corner lime">FIG. 02</div>
+        <h3>01 · TRACKS</h3>
+        <span class="jp">トラック · ORIGINAL OUTPUT · TABLE</span>
+        <div class="row"><span>▶</span><span><b>HYPNO LOOP / 04</b><span>134 · F min</span></span><span>06:42</span><span>↗</span></div>
+        <div class="row"><span>▶</span><span><b>RD9 SKETCH</b><span>138 · A min</span></span><span>05:18</span><span>↗</span></div>
+        <div class="row"><span>▶</span><span><b>BERLÍN A LAS 4</b><span>136 · D min</span></span><span>07:01</span><span>↗</span></div>
+        <div class="row"><span>▶</span><span><b>GROOVE STUDY #02</b><span>132 · G min</span></span><span>06:10</span><span>↗</span></div>
+        <div class="row"><span>▶</span><span><b>NINETIES BUMP</b><span>130 · C min</span></span><span>05:44</span><span>↗</span></div>
+      </div>
+
+      <!-- photo signature -->
+      <div class="p3-cell p3-photo" style="grid-column:6/span 3">
+        <div class="ph" data-label="PHOTO · TRACKS MOOD"><img src="photos/p3.jpg" alt=""></div>
+      </div>
+
+      <!-- SETS -->
+      <div class="p3-cell p3-sets" style="grid-column:9/span 4">
+        <div class="corner">FIG. 03</div>
+        <h3>02 · SETS</h3>
+        <span class="jp">DJセット · CHRONOLOGICAL</span>
+        <div class="row"><span>26.04</span><span><b>WAREHOUSE / BSAS</b><span>02:14:03</span></span><span>▶</span></div>
+        <div class="row"><span>12.03</span><span><b>NACHTBAR / PARIS</b><span>01:48:22</span></span><span>▶</span></div>
+        <div class="row"><span>02.02</span><span><b>HOME RADIO / W22</b><span>01:02:11</span></span><span>▶</span></div>
+        <div class="row"><span>14.01</span><span><b>BERLIN BASEMENT</b><span>03:06:40</span></span><span>▶</span></div>
+      </div>
+
+      <!-- LIVES -->
+      <div class="p3-cell" style="grid-column:1/span 4">
+        <div class="corner">FIG. 04</div>
+        <h3>03 · LIVES</h3>
+        <span class="jp">ライブ · RD-9 × TD-3</span>
+        <div class="row" style="grid-template-columns:1fr 28px"><span><b>RD9 × TD3 SUNSET</b><span>00:42:18 · outdoor</span></span><span>▶</span></div>
+        <div class="row" style="grid-template-columns:1fr 28px"><span><b>HOME STUDIO JAM</b><span>00:28:04 · groove</span></span><span>▶</span></div>
+        <div class="row" style="grid-template-columns:1fr 28px"><span><b>HYPNOTIC NIGHT</b><span>00:51:47 · RD9 + FX</span></span><span>▶</span></div>
+      </div>
+
+      <!-- LIVE photo -->
+      <div class="p3-cell p3-photo" style="grid-column:5/span 4">
+        <div class="ph" data-label="PHOTO · LIVE RIG"><img src="photos/p2.jpg" alt=""></div>
+      </div>
+
+      <!-- BONUS -->
+      <div class="p3-cell p3-bonus" style="grid-column:9/span 4">
+        <div class="corner lime">FIG. 05</div>
+        <h3>04 · BONUS TRACK</h3>
+        <span class="jp">推薦 · WEEK 17 · 5 PICKS</span>
+        <div class="item"><span class="n">1</span><span><b>ARTIST — TRACK</b><span>label · year</span></span><span>↗</span></div>
+        <div class="item"><span class="n">2</span><span><b>ARTIST — TRACK</b><span>label · year</span></span><span>↗</span></div>
+        <div class="item"><span class="n">3</span><span><b>ARTIST — TRACK</b><span>label · year</span></span><span>↗</span></div>
+        <div class="item"><span class="n">4</span><span><b>ARTIST — TRACK</b><span>label · year</span></span><span>↗</span></div>
+        <div class="item"><span class="n">5</span><span><b>ARTIST — TRACK</b><span>label · year</span></span><span>↗</span></div>
+      </div>
+
+      <!-- SETS landscape photo -->
+      <div class="p3-cell p3-photo" style="grid-column:1/span 6">
+        <div class="ph" data-label="PHOTO · SETS LANDSCAPE"><img src="photos/p1.jpg" alt=""></div>
+      </div>
+      <div class="p3-cell" style="grid-column:7/span 6">
+        <div class="corner">FIG. 06</div>
+        <h3>NOW PLAYING / 再生中</h3>
+        <span class="jp">PERSISTENT MINI-PLAYER · WAVEFORM</span>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:14px;border-top:1.5px solid var(--ink);padding-top:14px">
+          <div style="width:40px;height:40px;background:var(--lime);border:1.5px solid var(--ink);display:grid;place-items:center"><span style="width:0;height:0;border-left:12px solid var(--ink);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px"></span></div>
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;font-size:11px"><b>HYPNO LOOP / 04</b><span class="micro">02:14 / 06:42</span></div>
+            <div class="wave" id="wave3" style="height:22px;display:flex;gap:2px;align-items:flex-end;margin-top:6px"></div>
+          </div>
+          <span class="btn">SC ↗</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PANEL 4 — CLUB FLYER / ZINE
+       ============================================================ -->
+  <section class="panel p4" id="p4">
+    <div class="p4-stage">
+      <div class="p4-jp">アドリアーノ ・ ハードグルーヴ ・ ヒプノティック ・ テクノ</div>
+      <h1 class="p4-title">
+        <span class="stack">ADD</span>
+        <span class="stack">RIA</span>
+        <span class="stack">NO.</span>
+      </h1>
+
+      <div class="p4-tape" style="left:36px;top:25px">PORTFOLIO 2026 · SIDE A</div>
+      <div class="p4-tape" style="left:560px;top:88px;transform:rotate(-2deg)">SCROLL = MIXTAPE</div>
+
+      <div class="ph p4-photo-1" data-label="01 — RD9"><img src="photos/p3.jpg" alt=""></div>
+      <div class="ph p4-photo-2" data-label="02 — STUDIO"><img src="photos/p2.jpg" alt=""></div>
+      <div class="ph p4-photo-3" data-label="03 — HOME"><img src="photos/p1.jpg" alt=""></div>
+
+      <div class="p4-block p4-tracks">
+        <h3>TRACKS <span class="num">01/04</span></h3>
+        <span class="jp">トラック</span>
+        <div class="row"><span>▶</span><b>HYPNO LOOP / 04</b><span>134 · F</span></div>
+        <div class="row"><span>▶</span><b>RD9 SKETCH</b><span>138 · A</span></div>
+        <div class="row"><span>▶</span><b>BERLÍN A LAS 4</b><span>136 · D</span></div>
+        <div class="row"><span>▶</span><b>GROOVE STUDY #02</b><span>132 · G</span></div>
+        <div class="row"><span>▶</span><b>NINETIES BUMP</b><span>130 · C</span></div>
+      </div>
+
+      <div class="p4-block p4-sets">
+        <h3>SETS <span class="num">02/04</span></h3>
+        <span class="jp">DJセット</span>
+        <div class="row"><span>▶</span><b>WAREHOUSE / BSAS</b><span>26.04</span></div>
+        <div class="row"><span>▶</span><b>NACHTBAR / PARIS</b><span>12.03</span></div>
+        <div class="row"><span>▶</span><b>HOME RADIO / W22</b><span>02.02</span></div>
+        <div class="row"><span>▶</span><b>BERLIN BASEMENT</b><span>14.01</span></div>
+      </div>
+
+      <div class="p4-block p4-lives">
+        <h3>LIVES <span class="num">03/04</span></h3>
+        <span class="jp">ライブ · RD-9 + TD-3</span>
+        <div class="row"><span>▶</span><b>RD9 × TD3 SUNSET</b><span>L#03</span></div>
+        <div class="row"><span>▶</span><b>HOME STUDIO JAM</b><span>L#02</span></div>
+        <div class="row"><span>▶</span><b>HYPNOTIC NIGHT</b><span>L#01</span></div>
+      </div>
+
+      <div class="p4-block p4-bonus">
+        <h3>BONUS <span class="num">04/04</span></h3>
+        <span class="jp">推薦 · W17</span>
+        <div class="row"><span>1</span><b>ARTIST — TRACK</b><span>↗</span></div>
+        <div class="row"><span>2</span><b>ARTIST — TRACK</b><span>↗</span></div>
+        <div class="row"><span>3</span><b>ARTIST — TRACK</b><span>↗</span></div>
+        <div class="row"><span>4</span><b>ARTIST — TRACK</b><span>↗</span></div>
+        <div class="row"><span>5</span><b>ARTIST — TRACK</b><span>↗</span></div>
+      </div>
+
+      <div class="annotate" style="left:300px;top:240px;transform:rotate(-4deg);max-width:240px">
+        las fotos rotadas, los bloques flotando — energía de flyer pegado en pared
+        <svg width="80" height="60" style="left:130px;top:30px;transform:rotate(20deg)"><path d="M0,0 C 30,30 60,30 78,8" fill="none" stroke="#141414" stroke-width="1.5"/><polygon points="78,8 70,7 73,14" fill="#141414"/></svg>
+      </div>
+    </div>
+    <div class="p4-marquee">
+      <span>HARDGROOVE · 90'S TECHNO · GROOVE · HOUSE · HYPNOTIC · BERLIN — PARIS · RD-9 × TD-3 · ハードグルーヴ ·</span>
+      <span>HARDGROOVE · 90'S TECHNO · GROOVE · HOUSE · HYPNOTIC · BERLIN — PARIS · RD-9 × TD-3 · ハードグルーヴ ·</span>
+    </div>
+  </section>
+</div>
+
+<!-- ============== TWEAKS PANEL ============== -->
+<div class="tweaks" id="tweaks">
+  <h4>TWEAKS<span class="jp">調整</span></h4>
+
+  <label>COLOR</label>
+  <div class="row" data-group="color">
+    <button data-val="lime" aria-pressed="true">Lime + B/N</button>
+    <button data-val="bw" aria-pressed="false">B/N puro</button>
+  </div>
+
+  <label>NOTAS A MANO</label>
+  <div class="row" data-group="notes">
+    <button data-val="on" aria-pressed="true">ON</button>
+    <button data-val="off" aria-pressed="false">OFF</button>
+  </div>
+
+  <label>DENSIDAD</label>
+  <div class="row" data-group="density">
+    <button data-val="comfort" aria-pressed="true">Comfort</button>
+    <button data-val="dense" aria-pressed="false">Dense</button>
+  </div>
+
+  <div style="border-top:1px dashed var(--ink);margin-top:12px;padding-top:10px;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);line-height:1.4">
+    Cambia entre las 4 direcciones arriba ↑<br>
+    01 archivo / 02 mixtape / 03 manual / 04 flyer
+  </div>
+</div>
+
+<script>
+  // tabs
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+  const frameName = document.getElementById('frameName');
+  const names = {p1:'VINYL INDEX · ARCHIVE',p2:'TAPE DECK · MIXTAPE',p3:'TECHNICAL MANUAL · 設計書',p4:'CLUB FLYER · ZINE'};
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    tabs.forEach(x=>x.setAttribute('aria-selected', x===t ? 'true':'false'));
+    const id = t.dataset.target;
+    panels.forEach(p=>p.classList.toggle('active', p.id===id));
+    frameName.textContent = names[id];
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  // tweaks
+  document.querySelectorAll('#tweaks .row').forEach(row=>{
+    row.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+      row.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed','false'));
+      b.setAttribute('aria-pressed','true');
+      const g = row.dataset.group, v = b.dataset.val;
+      if(g==='color') document.body.classList.toggle('bw', v==='bw');
+      if(g==='notes') document.body.classList.toggle('no-notes', v==='off');
+      if(g==='density') document.body.classList.toggle('dense', v==='dense');
+    }));
+  });
+
+  // waveform bars
+  function fillWave(id){
+    const el = document.getElementById(id); if(!el) return;
+    el.innerHTML = '';
+    for(let i=0;i<70;i++){
+      const i2 = document.createElement('i');
+      const h = 4 + Math.abs(Math.sin(i*0.6)+Math.cos(i*0.21))*10 + (i%5===0?6:0);
+      i2.style.height = h+'px';
+      el.appendChild(i2);
+    }
+  }
+  fillWave('wave2'); fillWave('wave3');
+</script>
+</body>
+</html>
