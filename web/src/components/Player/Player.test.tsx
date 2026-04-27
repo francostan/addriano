@@ -10,7 +10,7 @@ function Probe() {
   const p = usePlayer();
   return (
     <div>
-      <span data-testid="title">{p.current?.title ?? 'none'}</span>
+      <span data-testid="title">{p.current && 'title' in p.current ? p.current.title : 'none'}</span>
       <span data-testid="state">{p.isPlaying ? 'playing' : 'paused'}</span>
       <button onClick={() => p.play(sample)}>play</button>
       <button onClick={() => p.pause()}>pause</button>
