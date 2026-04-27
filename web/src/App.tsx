@@ -18,7 +18,6 @@ export default function App() {
         <BonusGrid />
       </main>
       <Player.Sticky />
-      <Player.Embed />
     </Player>
   );
 }

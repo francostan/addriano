@@ -4,9 +4,12 @@ import type { Playable } from '../../types';
 export type PlayerState = {
   current: Playable | null;
   isPlaying: boolean;
+  position: number;
+  duration: number;
   play: (item: Playable) => void;
   pause: () => void;
   toggle: () => void;
+  seek: (ms: number) => void;
 };
 
 export const PlayerContext = createContext<PlayerState | null>(null);
