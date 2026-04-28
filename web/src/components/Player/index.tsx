@@ -32,6 +32,10 @@ type SCWidget = {
   getDuration: (cb: (ms: number) => void) => void;
 };
 
+const IS_MOBILE = typeof window !== 'undefined'
+  && typeof window.matchMedia === 'function'
+  && window.matchMedia('(pointer: coarse)').matches;
+
 const ALL_URLS = Array.from(
   new Set([...tracks, ...sets, ...lives].map(p => p.embedUrl).filter(Boolean))
 );
@@ -75,6 +79,7 @@ function Provider({ children }: { children: ReactNode }) {
   }, [durations]);
 
   useEffect(() => {
+    if (IS_MOBILE) return;
     let cancelled = false;
     const tryInit = () => {
       if (cancelled) return;
@@ -86,7 +91,7 @@ function Provider({ children }: { children: ReactNode }) {
       ALL_URLS.forEach((url, i) => {
         const el = iframeRefs.current[i];
         if (!el || widgetsRef.current.has(url)) return;
-        const w = window.SC.Widget(el);
+        const w = window.SC!.Widget(el);
         widgetsRef.current.set(url, w);
         w.bind(E.READY, () => {
           w.getDuration((ms: number) => {
@@ -114,6 +119,12 @@ function Provider({ children }: { children: ReactNode }) {
   }, []);
 
   const play = useCallback((item: Playable) => {
+    if (IS_MOBILE) {
+      activeUrlRef.current = item.embedUrl;
+      setCurrent(item);
+      setIsPlaying(true);
+      return;
+    }
     const url = item.embedUrl;
     const w = widgetsRef.current.get(url);
     if (!w) return;
@@ -135,6 +146,10 @@ function Provider({ children }: { children: ReactNode }) {
   }, []);
 
   const pause = useCallback(() => {
+    if (IS_MOBILE) {
+      setIsPlaying(false);
+      return;
+    }
     const url = activeUrlRef.current;
     if (!url) return;
     widgetsRef.current.get(url)?.pause();
@@ -142,6 +157,7 @@ function Provider({ children }: { children: ReactNode }) {
   }, []);
 
   const toggle = useCallback(() => {
+    if (IS_MOBILE) return;
     if (!current) return;
     const url = activeUrlRef.current;
     if (!url) return;
@@ -150,18 +166,19 @@ function Provider({ children }: { children: ReactNode }) {
   }, [current]);
 
   const seek = useCallback((ms: number) => {
+    if (IS_MOBILE) return;
     const url = activeUrlRef.current;
     if (!url) return;
     widgetsRef.current.get(url)?.seekTo(ms);
     setPosition(ms);
   }, []);
 
-  const value: PlayerState = { current, isPlaying, position, duration, durations, play, pause, toggle, seek };
+  const value: PlayerState = { current, isPlaying, position, duration, durations, isMobile: IS_MOBILE, play, pause, toggle, seek };
 
   return (
     <PlayerContext.Provider value={value}>
       {children}
-      {ALL_URLS.map((url, i) => (
+      {!IS_MOBILE && ALL_URLS.map((url, i) => (
         <iframe
           key={url}
           ref={el => { iframeRefs.current[i] = el; }}

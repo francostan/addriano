@@ -3,7 +3,28 @@ import { Time } from './Time';
 import { Progress } from './Progress';
 
 export function Sticky() {
-  const { current, isPlaying, toggle } = usePlayer();
+  const { current, isPlaying, isMobile, toggle } = usePlayer();
+
+  if (isMobile) {
+    if (!current) return null;
+    const src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(current.embedUrl)}&auto_play=true&visual=false&color=d4ff3a&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&show_artwork=false&show_playcount=false&buying=false&sharing=false&download=false&liking=false`;
+    return (
+      <div className="sticky bottom-0 z-40 bg-ink border-t-[1.5px] border-ink">
+        <iframe
+          key={current.embedUrl}
+          src={src}
+          title={`now-playing-${current.id}`}
+          width="100%"
+          height="120"
+          allow="autoplay; encrypted-media"
+          scrolling="no"
+          frameBorder="no"
+          className="block w-full"
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="sticky bottom-0 z-40 bg-ink text-paper border-t-[1.5px] border-ink">
       <Progress />
