@@ -46,7 +46,7 @@ export function Hero() {
       </div>
 
       <div className="relative border-l-0 md:border-l-[1.5px] border-ink min-h-[560px]">
-        <img src="/photos/sets.webp" alt="" loading="eager" fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover object-[68%_60%]" />
+        <img src="/photos/sets.webp" alt="" loading="eager" fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover object-[68%_80%]" />
       </div>
     </Block>
   );
