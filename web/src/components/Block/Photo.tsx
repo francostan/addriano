@@ -9,7 +9,7 @@ export function Photo({ src, label, aspect = 'aspect-[4/3]', className = '', obj
   const wrapBg = fit === 'contain' ? 'bg-paper-2' : '';
   return (
     <div className={`relative border-[1.5px] border-ink overflow-hidden ${wrapAspect} ${wrapBg} ${className}`}>
-      <img src={src} alt="" className={imgClass} style={objectPosition ? { objectPosition } : undefined} />
+      <img src={src} alt="" loading="lazy" decoding="async" className={imgClass} style={objectPosition ? { objectPosition } : undefined} />
       {label && (
         <span className="absolute left-2 bottom-2 bg-paper border border-ink text-[9px] px-1.5 py-0.5 uppercase tracking-[0.12em]">
           {label}

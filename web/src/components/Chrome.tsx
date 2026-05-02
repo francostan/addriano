@@ -9,8 +9,9 @@ export function Chrome() {
           </span>
         </div>
         <img
-          src="/logo_web.png"
+          src="/logo_web.webp"
           alt="addriano"
+          decoding="async"
           className="h-12 md:h-14 w-auto block mix-blend-darken"
         />
       </div>

@@ -10,7 +10,7 @@ export function SetsBlock() {
     <Block>
       <Block.Header right num="02" title="SETS" jp="順番は気分" />
       <Block.Body>
-        <Block.Photo src="/photos/sets.jpg" />
+        <Block.Photo src="/photos/hero.webp" aspect="aspect-[1139/1400]" objectPosition="center bottom" />
         <div className="border-t-[1.5px] border-ink">
           {sets.map(s => {
             const active = current?.id === s.id;
@@ -20,7 +20,7 @@ export function SetsBlock() {
                 <span className="font-display text-[13px]">{dd}·{mm}</span>
                 <span>
                   <b className="font-display text-sm block">{s.venue} / {s.city}</b>
-                  <span className="text-ink-2 text-[11px] tabular-nums">{durations[s.embedUrl] ? formatMs(durations[s.embedUrl]) : '--:--'}</span>
+                  <span className="text-ink-2 text-[11px] tabular-nums">{durations[s.embedUrl] ? formatMs(durations[s.embedUrl]) : s.duration}</span>
                 </span>
                 <span className="text-[11px] tracking-[0.14em] uppercase border border-ink px-1.5 py-0.5">{s.id}</span>
                 <Player.Button item={s} />

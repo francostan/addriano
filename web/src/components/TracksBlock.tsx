@@ -20,7 +20,7 @@ export function TracksBlock() {
                   <b className="font-display text-sm block">{t.title}</b>
                   <span className="text-ink-2 text-[11px]">{t.year}</span>
                 </span>
-                <span className="text-[11px] tabular-nums">{durations[t.embedUrl] ? formatMs(durations[t.embedUrl]) : '--:--'}</span>
+                <span className="text-[11px] tabular-nums">{durations[t.embedUrl] ? formatMs(durations[t.embedUrl]) : t.duration}</span>
                 {t.downloadable ? (
                   <a
                     href={`${t.embedUrl}/download`}
@@ -35,7 +35,7 @@ export function TracksBlock() {
             );
           })}
         </div>
-        <Block.Photo src="/photos/tracks.jpg" aspect="aspect-[4/5]" objectPosition="80% center" />
+        <Block.Photo src="/photos/tracks.webp" aspect="aspect-[4/5]" objectPosition="80% center" />
       </Block.Body>
     </Block>
   );
