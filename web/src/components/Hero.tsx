@@ -23,7 +23,7 @@ export function Hero() {
             fetchPriority="high"
             className="block h-auto w-full max-w-[480px] select-none"
           />
-          <p className="max-w-xl text-[13px] leading-relaxed text-ink-2 m-0 md:text-center">
+          <p className="max-w-xl text-[13px] leading-relaxed text-ink-2 m-0 text-center">
             sonido hipnótico, minimalista e introspectivo. sets buscando repetición, texturas y atmósferas sutiles — capas profundas combinadas con ritmos naturales, generando un feedback de emoción y sentimiento en la pista.
           </p>
         </div>
