@@ -5,6 +5,7 @@ import { tracks } from '../../data/tracks';
 import { sets } from '../../data/sets';
 import { lives } from '../../data/lives';
 import { Sticky } from './Sticky';
+import { Inline } from './Inline';
 import { Button } from './Button';
 import { Wave } from './Wave';
 import { Time } from './Time';
@@ -253,4 +254,4 @@ function Provider({ children }: { children: ReactNode }) {
   );
 }
 
-export const Player = Object.assign(Provider, { Sticky, Button, Wave, Time, Progress });
+export const Player = Object.assign(Provider, { Sticky, Inline, Button, Wave, Time, Progress });

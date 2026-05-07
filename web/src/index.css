@@ -1,21 +1,22 @@
 @import "tailwindcss";
 
-@import "@fontsource/archivo-black/400.css";
-@import "@fontsource/space-mono/400.css";
-@import "@fontsource/space-mono/700.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
 @import "@fontsource/noto-sans-jp/400.css";
 @import "@fontsource/noto-sans-jp/700.css";
 
 @theme {
-  --color-paper: #f1ede2;
+  --color-paper: #f2efe6;
   --color-paper-2: #e8e3d4;
-  --color-ink: #141414;
+  --color-ink: #111111;
   --color-ink-2: #3a3a36;
-  --color-lime: #d4ff3a;
+  --color-lime: #ccff33;
   --color-lime-2: #b8e02a;
 
-  --font-display: "Archivo Black", sans-serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-display: "Space Grotesk", "Inter Tight", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --font-jp: "Noto Sans JP", sans-serif;
 }
 
@@ -28,3 +29,9 @@ html, body, #root {
 }
 
 * { box-sizing: border-box; }
+
+@keyframes beat {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.beat { animation: beat 1.2s ease-in-out infinite; }

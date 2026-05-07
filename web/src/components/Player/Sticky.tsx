@@ -1,60 +1,24 @@
 import { usePlayer } from './context';
-import { Time } from './Time';
-import { Progress } from './Progress';
 
 export function Sticky() {
-  const { current, isPlaying, isMobile, toggle } = usePlayer();
+  const { current, isMobile } = usePlayer();
+  if (!isMobile || !current) return null;
 
-  if (isMobile) {
-    if (!current) return null;
-    const src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(current.embedUrl)}&auto_play=true&visual=false&color=d4ff3a&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&show_artwork=false&show_playcount=false&buying=false&sharing=false&download=false&liking=false`;
-    return (
-      <div className="sticky bottom-0 z-40 bg-ink border-t-[1.5px] border-ink">
-        <iframe
-          key={current.embedUrl}
-          src={src}
-          title={`now-playing-${current.id}`}
-          width="100%"
-          height="120"
-          allow="autoplay; encrypted-media"
-          scrolling="no"
-          frameBorder="no"
-          className="block w-full"
-        />
-      </div>
-    );
-  }
+  const src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(current.embedUrl)}&auto_play=true&visual=false&color=ccff33&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&show_artwork=false&show_playcount=false&buying=false&sharing=false&download=false&liking=false`;
 
   return (
-    <div className="sticky bottom-0 z-40 bg-ink text-paper border-t-[1.5px] border-ink">
-      <Progress />
-      <div className="grid grid-cols-[auto_1fr_auto_auto] gap-4 items-center px-5 py-2">
-        <button
-          onClick={toggle}
-          disabled={!current}
-          className="w-9 h-9 bg-lime grid place-items-center disabled:opacity-40"
-          aria-label={isPlaying ? 'pause' : 'play'}
-        >
-          <span className={isPlaying ? 'block w-[3px] h-[10px] border-l-[3px] border-r-[3px] border-ink' : 'block w-0 h-0 border-l-[10px] border-l-ink border-y-[7px] border-y-transparent ml-[3px]'} />
-        </button>
-        <div className="text-[11px] uppercase tracking-[0.14em] min-w-0">
-          Now Playing
-          <b className="block font-display text-sm tracking-normal text-lime truncate">
-            {current ? `${'title' in current ? current.title : current.venue} — addriano` : '—'}
-          </b>
-        </div>
-        <Time />
-        {current && (
-          <a
-            href={current.embedUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="text-[10px] uppercase tracking-[0.16em] border border-paper/30 px-2 py-1"
-          >
-            SC ↗
-          </a>
-        )}
-      </div>
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-ink border-t-[1.5px] border-ink">
+      <iframe
+        key={current.embedUrl}
+        src={src}
+        title={`now-playing-${current.id}`}
+        width="100%"
+        height="120"
+        allow="autoplay; encrypted-media"
+        scrolling="no"
+        frameBorder="no"
+        className="block w-full"
+      />
     </div>
   );
 }
