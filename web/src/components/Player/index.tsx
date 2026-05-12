@@ -22,6 +22,8 @@ declare global {
   }
 }
 
+type SCSound = { permalink_url?: string };
+
 type SCWidget = {
   bind: (event: string, cb: (data?: unknown) => void) => void;
   unbind: (event: string) => void;
@@ -31,6 +33,7 @@ type SCWidget = {
   toggle: () => void;
   seekTo: (ms: number) => void;
   getDuration: (cb: (ms: number) => void) => void;
+  getCurrentSound: (cb: (s: SCSound | null) => void) => void;
 };
 
 const IS_MOBILE = typeof window !== 'undefined'
@@ -70,6 +73,7 @@ function Provider({ children }: { children: ReactNode }) {
   const [position, setPosition] = useState(0);
   const [duration, setDuration] = useState(0);
   const [durations, setDurations] = useState<Record<string, number>>(() => loadCache());
+  const [playingUrl, setPlayingUrl] = useState<string | null>(null);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const widgetRef = useRef<SCWidget | null>(null);
@@ -101,15 +105,26 @@ function Provider({ children }: { children: ReactNode }) {
       const w = window.SC.Widget(iframeRef.current);
       widgetRef.current = w;
       const E = window.SC.Widget.Events;
+      const syncCurrentSound = () => {
+        w.getCurrentSound((s) => {
+          const url = s?.permalink_url ?? null;
+          setPlayingUrl(prev => prev === url ? prev : url);
+        });
+      };
       w.bind(E.READY, () => {
         w.getDuration((d: number) => setDuration(d));
+        syncCurrentSound();
       });
-      w.bind(E.PLAY, () => setIsPlaying(true));
+      w.bind(E.PLAY, () => {
+        setIsPlaying(true);
+        syncCurrentSound();
+      });
       w.bind(E.PAUSE, () => setIsPlaying(false));
       w.bind(E.FINISH, () => setIsPlaying(false));
       w.bind(E.PLAY_PROGRESS, (data) => {
         const e = data as { currentPosition: number };
         setPosition(e.currentPosition);
+        if (e.currentPosition < 1500) syncCurrentSound();
       });
     };
     tryInit();
@@ -125,11 +140,13 @@ function Provider({ children }: { children: ReactNode }) {
     }
     setPosition(0);
     setDuration(0);
+    setPlayingUrl(null);
     widgetRef.current.load(current.embedUrl, {
       auto_play: true,
       visual: false,
       callback: () => {
         widgetRef.current?.getDuration((d: number) => setDuration(d));
+        widgetRef.current?.getCurrentSound((s) => setPlayingUrl(s?.permalink_url ?? null));
       },
     });
   }, [current]);

@@ -13,7 +13,7 @@ export function Inline() {
   if (isMobile) return null;
 
   const pct = duration > 0 ? Math.min(100, (position / duration) * 100) : 0;
-  const title = current ? ('title' in current ? current.title : current.venue) : '— NO TRACK —';
+  const title = current ? current.title : '— NO TRACK —';
 
   function onSeek(e: MouseEvent<HTMLDivElement>) {
     if (!current || duration <= 0) return;

@@ -1,11 +1,12 @@
-import { tracks } from '../data/tracks';
+import { latestPlayable } from '../data/tracks';
 import { Block } from './Block';
 import { usePlayer } from './Player/context';
 
 export function Hero() {
-  const latest = tracks[0];
+  const { track: latest, kind } = latestPlayable();
   const { current, isPlaying, play, pause } = usePlayer();
   const active = current?.id === latest.id && isPlaying;
+  const label = kind === 'singles' ? 'LATEST TRACK' : `LATEST ${kind}`;
   return (
     <Block className="!p-0 grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-0 shadow-[6px_6px_0_0_#141414]">
       <div className="relative min-h-[560px] border-b-[1.5px] md:border-b-0 border-ink">
@@ -32,9 +33,9 @@ export function Hero() {
           <button
             onClick={() => (active ? pause() : play(latest))}
             className="col-span-2 md:col-auto inline-flex justify-center items-center gap-2 border-[1.5px] border-ink bg-lime px-3 py-2 md:py-1.5 text-[11px] tracking-[0.14em] uppercase hover:bg-paper transition-colors"
-            aria-label={active ? 'pause latest track' : 'play latest track'}
+            aria-label={active ? `pause ${label.toLowerCase()}` : `play ${label.toLowerCase()}`}
           >
-            {active ? '❚❚ PAUSE' : '▶ LATEST TRACK'}
+            {active ? '❚❚ PAUSE' : `▶ ${label}`}
           </button>
           <a href="https://soundcloud.com/adriano-stanziola" target="_blank" rel="noreferrer" className="inline-flex justify-center items-center border-[1.5px] border-ink px-3 py-2 md:py-1.5 text-[11px] tracking-[0.14em] uppercase">SOUNDCLOUD ↗</a>
           <a href="https://www.instagram.com/addriano______/" target="_blank" rel="noreferrer" className="inline-flex justify-center items-center border-[1.5px] border-ink px-3 py-2 md:py-1.5 text-[11px] tracking-[0.14em] uppercase">INSTAGRAM ↗</a>

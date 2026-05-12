@@ -19,7 +19,7 @@ export function SetsBlock() {
               <div key={s.id} className={`grid grid-cols-[64px_1fr_auto_28px] gap-3 items-center py-2.5 px-1 border-b border-ink text-xs ${active ? 'bg-lime' : ''}`}>
                 <span className="font-display text-[13px]">{dd}·{mm}</span>
                 <span>
-                  <b className="font-display text-sm block">{s.venue} / {s.city}</b>
+                  <b className="font-display text-sm block">{s.title}</b>
                   <span className="text-ink-2 text-[11px] tabular-nums">{durations[s.embedUrl] ? formatMs(durations[s.embedUrl]) : s.duration}</span>
                 </span>
                 <span className="text-[11px] tracking-[0.14em] uppercase border border-ink px-1.5 py-0.5">{s.id}</span>

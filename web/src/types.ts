@@ -3,19 +3,28 @@ export type Track = {
   title: string;
   year: number;
   label?: string;
-  bpm: number;
-  musicalKey: string;
+  bpm?: number;
+  musicalKey?: string;
   duration: string;
   embedUrl: string;
   tag?: 'NEW' | 'UNREL.' | 'SPLIT EP' | 'BC' | 'TAPE';
   downloadable?: boolean;
 };
 
+export type Release = {
+  id: string;
+  kind: 'singles' | 'EP' | 'LP';
+  title: string;
+  year?: number;
+  side: 'A' | 'B' | 'C' | 'D';
+  embedUrl?: string;
+  tracks: Track[];
+};
+
 export type DJSet = {
   id: string;
   date: string;
-  venue: string;
-  city: string;
+  title: string;
   genre: string;
   duration: string;
   embedUrl: string;
