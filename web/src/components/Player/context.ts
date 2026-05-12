@@ -8,10 +8,12 @@ export type PlayerState = {
   duration: number;
   durations: Record<string, number>;
   isMobile: boolean;
+  playingUrl: string | null;
   play: (item: Playable) => void;
   pause: () => void;
   toggle: () => void;
   seek: (ms: number) => void;
+  setPlayingUrl: (url: string | null) => void;
 };
 
 export const PlayerContext = createContext<PlayerState | null>(null);

@@ -1,5 +1,6 @@
 import type { MouseEvent } from 'react';
 import { usePlayer } from './context';
+import { tracks } from '../../data/tracks';
 
 function fmt(ms: number) {
   const s = Math.max(0, Math.floor(ms / 1000));
@@ -9,11 +10,16 @@ function fmt(ms: number) {
 }
 
 export function Inline() {
-  const { current, isPlaying, isMobile, position, duration, toggle, seek } = usePlayer();
+  const { current, isPlaying, isMobile, position, duration, playingUrl, toggle, seek } = usePlayer();
   if (isMobile) return null;
 
   const pct = duration > 0 ? Math.min(100, (position / duration) * 100) : 0;
-  const title = current ? current.title : '— NO TRACK —';
+  const sub = current && playingUrl ? tracks.find(t => t.embedUrl === playingUrl) : null;
+  const title = !current
+    ? '— NO TRACK —'
+    : sub && sub.id !== current.id
+      ? `${current.title} · ${sub.title}`
+      : current.title;
 
   function onSeek(e: MouseEvent<HTMLDivElement>) {
     if (!current || duration <= 0) return;

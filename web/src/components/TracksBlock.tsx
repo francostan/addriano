@@ -6,27 +6,28 @@ import { Player } from './Player';
 import { usePlayer } from './Player/context';
 import { formatMs } from './Player/format';
 
-function SideHeader({ r, active }: { r: Release; active: boolean }) {
-  const { play, pause } = usePlayer();
+function SideHeader({ r, headerActive, isCurrentSet }: { r: Release; headerActive: boolean; isCurrentSet: boolean }) {
+  const { isPlaying, play, pause } = usePlayer();
   const playable = r.embedUrl ? releaseAsTrack(r) : null;
+  const setPlaying = isCurrentSet && isPlaying;
 
   return (
-    <div className={`grid grid-cols-[28px_1fr_auto] gap-3 items-center py-2 px-1 border-t-[1.5px] border-b border-ink ${active ? 'bg-lime' : ''}`}>
+    <div className={`grid grid-cols-[28px_1fr_auto] gap-3 items-center py-2 px-1 border-t-[1.5px] border-b border-ink ${headerActive ? 'bg-lime' : ''}`}>
       <span className="font-display text-[13px]">{r.side}</span>
       <span className="font-display text-[11px] tracking-[0.16em]">
-        <span className={r.kind === 'singles' ? 'uppercase' : ''}>{r.title}</span>
+        {r.title}
         {r.kind !== 'singles' && (
-          <span className="text-ink-2 ml-2 tracking-normal">· {r.kind} · {r.year}</span>
+          <span className={`ml-2 tracking-normal ${headerActive ? 'text-ink' : 'text-ink-2'}`}>· {r.kind} · {r.year}</span>
         )}
       </span>
       {playable ? (
         <button
           type="button"
-          onClick={() => (active ? pause() : play(playable))}
-          className={`inline-flex items-center gap-1.5 border-[1.5px] border-ink px-2 py-0.5 text-[10px] tracking-[0.14em] uppercase ${active ? 'bg-paper' : 'bg-paper hover:bg-lime'} transition-colors`}
-          aria-label={active ? `pause ${r.title}` : `play full ${r.title}`}
+          onClick={() => (setPlaying ? pause() : play(playable))}
+          className="inline-flex items-center gap-1.5 border-[1.5px] border-ink px-2 py-0.5 text-[10px] tracking-[0.14em] uppercase bg-paper hover:bg-lime transition-colors"
+          aria-label={setPlaying ? `pause ${r.title}` : `play full ${r.title}`}
         >
-          {active ? '❚❚' : '▶'} ALL
+          {setPlaying ? '❚❚' : '▶'} ALL
         </button>
       ) : (
         <span />
@@ -35,15 +36,15 @@ function SideHeader({ r, active }: { r: Release; active: boolean }) {
   );
 }
 
-function Row({ t, pos, showDownload, parentActive }: { t: Track; pos: string; showDownload: boolean; parentActive: boolean }) {
-  const { current, durations } = usePlayer();
-  const active = current?.id === t.id || parentActive;
+function Row({ t, pos, showDownload, showYear }: { t: Track; pos: string; showDownload: boolean; showYear: boolean }) {
+  const { current, durations, playingUrl } = usePlayer();
+  const active = current?.id === t.id || playingUrl === t.embedUrl;
   return (
     <div className={`grid grid-cols-[28px_1fr_auto_28px_28px] gap-3 items-center py-2.5 px-1 border-b border-ink text-xs ${active ? 'bg-lime' : ''}`}>
       <span className="font-display">{pos}</span>
       <span>
         <b className="font-display text-sm block">{t.title}</b>
-        <span className="text-ink-2 text-[11px]">{t.year}</span>
+        {showYear && <span className="text-ink-2 text-[11px]">{t.year}</span>}
       </span>
       <span className="text-[11px] tabular-nums">{durations[t.embedUrl] ? formatMs(durations[t.embedUrl]) : (t.duration || '--:--')}</span>
       {showDownload && t.downloadable ? (
@@ -68,17 +69,18 @@ export function TracksBlock() {
       <Block.Body>
         <div>
           {releases.map(r => {
-            const releaseActive = !!r.embedUrl && current?.id === r.id;
+            const isCurrentSet = !!r.embedUrl && current?.id === r.id;
+            const headerActive = isCurrentSet || r.tracks.some(t => t.id === current?.id);
             return (
               <Fragment key={r.id}>
-                <SideHeader r={r} active={releaseActive} />
+                <SideHeader r={r} headerActive={headerActive} isCurrentSet={isCurrentSet} />
                 {r.tracks.map((t, i) => (
                   <Row
                     key={t.id}
                     t={t}
                     pos={`${r.side}${i + 1}`}
                     showDownload={r.kind === 'singles'}
-                    parentActive={releaseActive}
+                    showYear={r.kind === 'singles'}
                   />
                 ))}
               </Fragment>

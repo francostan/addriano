@@ -4,8 +4,8 @@ import type { Playable } from '../../types';
 type Props = { item: Playable; size?: 'sm' | 'md' };
 
 export function Button({ item, size = 'sm' }: Props) {
-  const { current, isPlaying, isMobile, play, pause } = usePlayer();
-  const selected = current?.id === item.id;
+  const { current, isPlaying, isMobile, playingUrl, play, pause } = usePlayer();
+  const selected = current?.id === item.id || ('embedUrl' in item && playingUrl === item.embedUrl);
   const active = isMobile ? selected : selected && isPlaying;
   const dim = size === 'md' ? 'w-8 h-8' : 'w-5 h-5';
   return (

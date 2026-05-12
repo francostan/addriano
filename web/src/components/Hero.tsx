@@ -35,7 +35,7 @@ export function Hero() {
             className="col-span-2 md:col-auto inline-flex justify-center items-center gap-2 border-[1.5px] border-ink bg-lime px-3 py-2 md:py-1.5 text-[11px] tracking-[0.14em] uppercase hover:bg-paper transition-colors"
             aria-label={active ? `pause ${label.toLowerCase()}` : `play ${label.toLowerCase()}`}
           >
-            {active ? '❚❚ PAUSE' : `▶ ${label}`}
+            {active ? `❚❚ ${label}` : `▶ ${label}`}
           </button>
           <a href="https://soundcloud.com/adriano-stanziola" target="_blank" rel="noreferrer" className="inline-flex justify-center items-center border-[1.5px] border-ink px-3 py-2 md:py-1.5 text-[11px] tracking-[0.14em] uppercase">SOUNDCLOUD ↗</a>
           <a href="https://www.instagram.com/addriano______/" target="_blank" rel="noreferrer" className="inline-flex justify-center items-center border-[1.5px] border-ink px-3 py-2 md:py-1.5 text-[11px] tracking-[0.14em] uppercase">INSTAGRAM ↗</a>

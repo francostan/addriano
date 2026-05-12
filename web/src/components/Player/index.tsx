@@ -235,7 +235,7 @@ function Provider({ children }: { children: ReactNode }) {
     setPosition(ms);
   }, []);
 
-  const value: PlayerState = { current, isPlaying, position, duration, durations, isMobile: IS_MOBILE, play, pause, toggle, seek };
+  const value: PlayerState = { current, isPlaying, position, duration, durations, isMobile: IS_MOBILE, playingUrl, play, pause, toggle, seek, setPlayingUrl };
 
   const loaderSrc = ALL_URLS[0]
     ? `https://w.soundcloud.com/player/?url=${encodeURIComponent(ALL_URLS[0])}&auto_play=false&visual=false`
