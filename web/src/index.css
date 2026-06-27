@@ -40,3 +40,13 @@ html, body, #root {
   50% { opacity: 0.45; }
 }
 .beat { animation: beat 1.2s ease-in-out infinite; }
+
+/* Shared row language — one seam, inherited by the four blocks.
+   Each block keeps its own grid-cols; only the visual vocabulary lives here. */
+@layer components {
+  .row { @apply grid gap-3 items-center py-2.5 px-1 text-xs; }      /* base row, no per-row border */
+  .row-title { @apply font-display text-[15px] leading-tight; }     /* dominant title */
+  .row-meta { @apply text-ink-2 text-[11px]; }                      /* faint metadata */
+  .group-rule { @apply border-b border-ink; }                       /* hairline under a group header */
+  .group-gap { @apply mt-8 first:mt-0; }                            /* air between groups */
+}

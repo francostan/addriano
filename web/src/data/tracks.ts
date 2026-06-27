@@ -7,7 +7,8 @@ export const releases: Release[] = [
     title: 'SINGLES',
     side: 'A',
     tracks: [
-      { id: 't1', title: 'dermatologia', year: 2026, label: 'self-released', duration: '05:18', embedUrl: 'https://soundcloud.com/adriano-stanziola/dermatologia', tag: 'NEW', downloadable: true },
+      { id: 'beheaded-ritual', title: 'beheaded ritual', year: 2026, duration: '04:40', embedUrl: 'https://soundcloud.com/adriano-stanziola/beheaded-ritual', tag: 'NEW', downloadable: true },
+      { id: 't1', title: 'dermatologia', year: 2026, label: 'self-released', duration: '05:18', embedUrl: 'https://soundcloud.com/adriano-stanziola/dermatologia', downloadable: true },
       { id: 't2', title: 'visceral', year: 2025, duration: '06:42', embedUrl: 'https://soundcloud.com/adriano-stanziola/visceral', downloadable: true },
     ],
   },
@@ -28,6 +29,15 @@ export const releases: Release[] = [
 
 export const tracks: Track[] = releases.flatMap(r => r.tracks);
 
+/** Explicitly-marked latest release the NEW RELEASE band consumes — not "last in array". */
+export const FEATURED_ID = 'beheaded-ritual';
+
+export function featured(): Track {
+  const t = tracks.find(t => t.id === FEATURED_ID);
+  if (!t) throw new Error(`featured track "${FEATURED_ID}" not found`);
+  return t;
+}
+
 export function releaseAsTrack(r: Release): Track {
   return {
     id: r.id,
@@ -36,11 +46,4 @@ export function releaseAsTrack(r: Release): Track {
     duration: '',
     embedUrl: r.embedUrl!,
   };
-}
-
-export function latestPlayable(): { track: Track; kind: Release['kind'] } {
-  const r = releases[releases.length - 1];
-  return r.embedUrl
-    ? { track: releaseAsTrack(r), kind: r.kind }
-    : { track: r.tracks[0], kind: 'singles' };
 }

@@ -24,13 +24,13 @@ function pillClass(kind: DateEntry['kind']) {
 function Row({ d }: { d: DateEntry }) {
   const dd = d.date.split('-')[2];
   return (
-    <div className="grid grid-cols-[40px_1fr_auto_auto] gap-3 items-center py-2.5 px-1 border-b border-dashed border-ink text-xs">
+    <div className="row grid-cols-[40px_1fr_auto_auto] border-b border-dashed border-ink">
       <span className="font-display text-[15px]">{dd}</span>
       <span>
-        <b className="font-display text-sm">{d.venue}</b>
-        <span className="text-ink-2 ml-2 text-[11px] tracking-[0.14em] uppercase">{d.city}</span>
+        <b className="row-title">{d.venue}</b>
+        <span className="row-meta ml-2 tracking-[0.14em] uppercase">{d.city}</span>
       </span>
-      <span className="text-ink-2 tabular-nums text-[11px]">{d.time}</span>
+      <span className="row-meta tabular-nums">{d.time}</span>
       <span className={`text-[10px] tracking-[0.14em] uppercase px-1.5 py-0.5 border ${pillClass(d.kind)}`}>{d.kind}</span>
     </div>
   );

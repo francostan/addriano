@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { releases, releaseAsTrack } from '../data/tracks';
 import type { Release, Track } from '../types';
 import { Block } from './Block';
@@ -12,7 +11,7 @@ function SideHeader({ r, headerActive, isCurrentSet }: { r: Release; headerActiv
   const setPlaying = isCurrentSet && isPlaying;
 
   return (
-    <div className={`grid grid-cols-[28px_1fr_auto] gap-3 items-center py-2 px-1 border-t-[1.5px] border-b border-ink ${headerActive ? 'bg-lime' : ''}`}>
+    <div className={`grid grid-cols-[28px_1fr_auto] gap-3 items-center py-2 px-1 group-rule ${headerActive ? 'bg-lime' : ''}`}>
       <span className="font-display text-[13px]">{r.side}</span>
       <span className="font-display text-[11px] tracking-[0.16em]">
         {r.title}
@@ -40,13 +39,13 @@ function Row({ t, pos, showDownload, showYear }: { t: Track; pos: string; showDo
   const { current, durations, playingUrl } = usePlayer();
   const active = current?.id === t.id || playingUrl === t.embedUrl;
   return (
-    <div className={`grid grid-cols-[28px_1fr_auto_28px_28px] gap-3 items-center py-2.5 px-1 border-b border-ink text-xs ${active ? 'bg-lime' : ''}`}>
-      <span className="font-display">{pos}</span>
+    <div className={`row grid-cols-[28px_1fr_auto_28px_28px] ${active ? 'bg-lime' : ''}`}>
+      <span className="font-display text-ink-2">{pos}</span>
       <span>
-        <b className="font-display text-sm block">{t.title}</b>
-        {showYear && <span className="text-ink-2 text-[11px]">{t.year}</span>}
+        <b className="row-title block">{t.title}</b>
+        {showYear && <span className="row-meta">{t.year}</span>}
       </span>
-      <span className="text-[11px] tabular-nums">{durations[t.embedUrl] ? formatMs(durations[t.embedUrl]) : (t.duration || '--:--')}</span>
+      <span className="row-meta tabular-nums">{durations[t.embedUrl] ? formatMs(durations[t.embedUrl]) : (t.duration || '--:--')}</span>
       {showDownload && t.downloadable ? (
         <a
           href={`${t.embedUrl}/download`}
@@ -72,18 +71,18 @@ export function TracksBlock() {
             const isCurrentSet = !!r.embedUrl && current?.id === r.id;
             const headerActive = isCurrentSet || r.tracks.some(t => t.id === current?.id);
             return (
-              <Fragment key={r.id}>
+              <div key={r.id} className="group-gap">
                 <SideHeader r={r} headerActive={headerActive} isCurrentSet={isCurrentSet} />
                 {r.tracks.map((t, i) => (
                   <Row
                     key={t.id}
                     t={t}
-                    pos={`${r.side}${i + 1}`}
+                    pos={`${i + 1}`}
                     showDownload={r.kind === 'singles'}
                     showYear={r.kind === 'singles'}
                   />
                 ))}
-              </Fragment>
+              </div>
             );
           })}
         </div>
