@@ -18,6 +18,15 @@
   --font-display: "Space Grotesk", "Inter Tight", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --font-jp: "Noto Sans JP", sans-serif;
+
+  /* Motion tokens — one seam, transitions.dev philosophy written native.
+     Setting the Tailwind defaults propagates consistent easing/duration to
+     every existing transition-* utility without touching a call-site. */
+  --ease-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);   /* standard decelerate */
+  --default-transition-timing-function: var(--ease-smooth);
+  --default-transition-duration: 150ms;            /* base for all transition-* */
+  --t-base: 180ms;                                 /* state changes (active row) */
+  --t-slow: 360ms;                                 /* larger reveals (sticky header) */
 }
 
 html, body, #root {
@@ -26,6 +35,19 @@ html, body, #root {
   color: var(--color-ink);
   font-family: var(--font-mono);
   min-height: 100vh;
+}
+
+html { scroll-behavior: smooth; }
+
+/* Accessibility guard — neutralizes motion (incl. the infinite .beat pulse)
+   for anyone who asks for less. */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 * { box-sizing: border-box; }
@@ -44,9 +66,9 @@ html, body, #root {
 /* Shared row language — one seam, inherited by the four blocks.
    Each block keeps its own grid-cols; only the visual vocabulary lives here. */
 @layer components {
-  .row { @apply grid gap-3 items-center py-2.5 px-1 text-xs; }      /* base row, no per-row border */
+  .row { @apply grid gap-3 items-center py-2.5 px-1 text-xs transition-colors duration-[180ms]; }  /* base row; active lime fades in */
   .row-title { @apply font-display text-[15px] leading-tight; }     /* dominant title */
   .row-meta { @apply text-ink-2 text-[11px]; }                      /* faint metadata */
-  .group-rule { @apply border-b border-ink; }                       /* hairline under a group header */
+  .group-rule { @apply border-b border-ink transition-colors duration-[180ms]; }  /* hairline under a group header; active lime fades in */
   .group-gap { @apply mt-8 first:mt-0; }                            /* air between groups */
 }

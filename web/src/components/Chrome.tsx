@@ -13,7 +13,7 @@ export function Chrome() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-30 bg-paper border-b-[1.5px] border-ink py-4 transition-all duration-500 ease-out ${
+      className={`fixed top-0 left-0 right-0 z-30 bg-paper border-b-[1.5px] border-ink py-4 transition-[opacity,transform] duration-[360ms] ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
       }`}
     >
